@@ -1,1 +1,243 @@
-<h1>杉杉是个3000</h1>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>互动效果页面</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            color: white;
+        }
+        
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .welcome {
+            font-size: 4rem;
+            font-weight: bold;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+            animation: fadeInOut 3s forwards;
+        }
+        
+        .option {
+            position: absolute;
+            font-size: 2.5rem;
+            cursor: pointer;
+            padding: 15px 30px;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+            transition: all 0.3s ease;
+            animation: fadeIn 1s forwards;
+            opacity: 0;
+        }
+        
+        .option:hover {
+            transform: scale(1.1);
+            background: rgba(255, 215, 0, 0.2);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+        }
+        
+        .pineapple-text {
+            position: absolute;
+            font-size: 1.8rem;
+            color: #ff69b4;
+            text-align: center;
+            max-width: 80%;
+            line-height: 1.6;
+            text-shadow: 0 0 10px rgba(255, 105, 180, 0.7);
+            animation: fadeIn 1s forwards, fadeOut 5s 5s forwards;
+            opacity: 0;
+            padding: 20px;
+            border-radius: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+        
+        .small-option {
+            position: absolute;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 10px 20px;
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            animation: fadeIn 1s forwards;
+            opacity: 0;
+        }
+        
+        .top-left {
+            top: 20px;
+            left: 20px;
+        }
+        
+        .bottom-right {
+            bottom: 20px;
+            right: 20px;
+        }
+        
+        .dialog {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 600px;
+            font-size: 1.3rem;
+            line-height: 1.6;
+            animation: fadeIn 0.5s forwards;
+            opacity: 0;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.3);
+        }
+        
+        .thinking {
+            position: absolute;
+            font-size: 15rem;
+            animation: fadeIn 1s forwards, pulse 2s infinite;
+            opacity: 0;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: scale(0.8); }
+            20% { opacity: 1; transform: scale(1.1); }
+            50% { opacity: 1; transform: scale(1); }
+            80% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(0.8); }
+        }
+        
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeOut {
+            to { opacity: 0; }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .heart {
+            color: #ff1493;
+            display: inline-block;
+            animation: heartbeat 0.8s infinite;
+        }
+        
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.2); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="welcome">欢迎</div>
+        <div class="option pineapple-option hidden">凤梨是谁</div>
+        <div class="pineapple-text hidden">哦齁齁齁齁齁<span class="heart">❤</span>哦哦哦～～～～～噫<span class="heart">❤</span>哦哦哦齁齁～咿咿哦哦哦齁齁齁<span class="heart">❤❤❤❤❤❤❤❤❤❤❤</span>哦齁齁齁齁齁<span class="heart">❤</span>哦哦哦～～～～～噫<span class="heart">❤</span>哦哦哦齁齁～咿咿哦哦哦齁齁齁<span class="heart">❤❤❤❤❤❤❤❤❤❤</span>哦齁齁齁齁齁<span class="heart">❤</span>哦哦哦～～～～～噫<span class="heart">❤</span>哦哦哦齁齁～咿咿哦哦哦齁齁齁<span class="heart">❤❤❤❤❤❤❤❤❤❤❤</span>哦齁齁齁齁齁<span class="heart">❤</span>哦哦哦～～～～～噫<span class="heart">❤</span>哦哦哦齁齁～咿咿哦哦哦齁齁齁<span class="heart">❤❤❤❤❤❤❤❤❤❤❤</span>哦齁齁齁齁齁<span class="heart">❤</span>哦哦哦～～～～～噫<span class="heart">❤</span>哦哦哦齁齁～咿咿哦哦哦齁齁齁<span class="heart">❤❤❤❤❤❤❤❤❤❤❤</span>哦齁齁齁齁齁<span class="heart">❤</span>哦哦哦～～～～～噫<span class="heart">❤</span>哦哦哦齁齁～咿咿哦哦哦齁齁齁<span class="heart">❤❤❤❤❤❤❤❤❤❤❤</span>哦齁齁齁</div>
+        <div class="small-option siskal-option hidden top-left">西斯卡尔乐是谁</div>
+        <div class="small-option dog-mom-option hidden bottom-right">狗妈</div>
+        <div class="dialog dog-mom-dialog hidden">
+            5555，你们把我🐶妈打死☠️了，55，大坏蛋😭<br><br>
+            你敢打我们家少爷😡😡😡不想活了你😡😡😡<br><br>
+            555太疼了😭😭😭别👊我了😭，我给你们跪下了😱😱😱<br><br>
+            你竟敢打我😡😡😡你个傻子😡😡😡我请你吃狗肉，要不要啊😈😈😈，傻子，你不是喜欢吃肉吗？😈<br><br>
+            我不吃，我不吃😭😭😭<br><br>
+            吃不吃？本少爷请你吃狗肉😡😡😡你居然不吃😡😡😡<br><br>
+            这是🐶妈的肉，我不吃😭😭😭<br><br>
+            你不吃？那本少爷就吃给你看😏😏真香😋😋😋<br><br>
+            大坏蛋😡，你个大坏蛋😡，不准吃🐶妈的肉，不准😭😭😭<br><br>
+            好你个傻子👿，好本少爷玩够了，回家🦶🦶
+        </div>
+        <div class="thinking hidden">🤔</div>
+        <div class="small-option peeking-text hidden top-left">你在偷看神？</div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const welcome = document.querySelector('.welcome');
+            const pineappleOption = document.querySelector('.pineapple-option');
+            const pineappleText = document.querySelector('.pineapple-text');
+            const siskalOption = document.querySelector('.siskal-option');
+            const dogMomOption = document.querySelector('.dog-mom-option');
+            const dogMomDialog = document.querySelector('.dog-mom-dialog');
+            const thinking = document.querySelector('.thinking');
+            const peekingText = document.querySelector('.peeking-text');
+            
+            // 初始序列
+            setTimeout(() => {
+                welcome.classList.add('hidden');
+                pineappleOption.classList.remove('hidden');
+            }, 3000);
+            
+            // 点击"凤梨是谁"选项
+            pineappleOption.addEventListener('click', function() {
+                pineappleOption.classList.add('hidden');
+                pineappleText.classList.remove('hidden');
+                
+                setTimeout(() => {
+                    pineappleText.classList.add('hidden');
+                    siskalOption.classList.remove('hidden');
+                    dogMomOption.classList.remove('hidden');
+                }, 6000);
+            });
+            
+            // 点击"西斯卡尔乐是谁"选项
+            siskalOption.addEventListener('click', function() {
+                siskalOption.classList.add('hidden');
+                peekingText.classList.remove('hidden');
+                
+                setTimeout(() => {
+                    peekingText.classList.add('hidden');
+                    thinking.classList.remove('hidden');
+                }, 3000);
+            });
+            
+            // 点击"狗妈"选项
+            dogMomOption.addEventListener('click', function() {
+                dogMomOption.classList.add('hidden');
+                siskalOption.classList.add('hidden');
+                dogMomDialog.classList.remove('hidden');
+                
+                setTimeout(() => {
+                    dogMomDialog.classList.add('hidden');
+                    thinking.classList.remove('hidden');
+                }, 10000);
+            });
+        });
+    </script>
+</body>
+</html>
