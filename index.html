@@ -3,241 +3,350 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>互动效果页面</title>
+    <title>神秘档案 - 交互叙事体验</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Microsoft YaHei', sans-serif;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
         }
         
         body {
-            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+            background: #0a0a0a;
+            color: #e0e0e0;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* 初始欢迎部分 */
+        #welcome-section {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
-            color: white;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            z-index: 100;
+            transition: opacity 2s ease;
         }
         
-        .container {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .welcome {
-            font-size: 4rem;
+        #welcome-text {
+            font-size: 5rem;
             font-weight: bold;
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
-            animation: fadeInOut 3s forwards;
-        }
-        
-        .option {
-            position: absolute;
-            font-size: 2.5rem;
-            cursor: pointer;
-            padding: 15px 30px;
-            border-radius: 50px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
-            transition: all 0.3s ease;
-            animation: fadeIn 1s forwards;
-            opacity: 0;
-        }
-        
-        .option:hover {
-            transform: scale(1.1);
-            background: rgba(255, 215, 0, 0.2);
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
-        }
-        
-        .pineapple-text {
-            position: absolute;
-            font-size: 1.8rem;
-            color: #ff69b4;
             text-align: center;
-            max-width: 80%;
-            line-height: 1.6;
-            text-shadow: 0 0 10px rgba(255, 105, 180, 0.7);
-            animation: fadeIn 1s forwards, fadeOut 5s 5s forwards;
-            opacity: 0;
-            padding: 20px;
-            border-radius: 20px;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(5px);
-        }
-        
-        .small-option {
-            position: absolute;
-            font-size: 1.2rem;
-            cursor: pointer;
-            padding: 10px 20px;
-            border-radius: 30px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.3s ease;
-            animation: fadeIn 1s forwards;
-            opacity: 0;
-        }
-        
-        .top-left {
-            top: 20px;
-            left: 20px;
-        }
-        
-        .bottom-right {
-            bottom: 20px;
-            right: 20px;
-        }
-        
-        .dialog {
-            position: absolute;
-            background: rgba(0, 0, 0, 0.7);
-            border-radius: 20px;
-            padding: 30px;
-            max-width: 600px;
-            font-size: 1.3rem;
-            line-height: 1.6;
-            animation: fadeIn 0.5s forwards;
-            opacity: 0;
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 0 30px rgba(255, 0, 0, 0.3);
-        }
-        
-        .thinking {
-            position: absolute;
-            font-size: 15rem;
-            animation: fadeIn 1s forwards, pulse 2s infinite;
-            opacity: 0;
-        }
-        
-        .hidden {
-            display: none;
-        }
-        
-        @keyframes fadeInOut {
-            0% { opacity: 0; transform: scale(0.8); }
-            20% { opacity: 1; transform: scale(1.1); }
-            50% { opacity: 1; transform: scale(1); }
-            80% { opacity: 1; transform: scale(1); }
-            100% { opacity: 0; transform: scale(0.8); }
-        }
-        
-        @keyframes fadeIn {
-            to { opacity: 1; }
-        }
-        
-        @keyframes fadeOut {
-            to { opacity: 0; }
+            background: linear-gradient(90deg, #ff9a9e 0%, #fad0c4 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 30px rgba(255, 154, 158, 0.5);
+            animation: pulse 3s infinite alternate;
         }
         
         @keyframes pulse {
             0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
+            100% { transform: scale(1.05); }
         }
         
-        .heart {
-            color: #ff1493;
-            display: inline-block;
-            animation: heartbeat 0.8s infinite;
+        /* 选项按钮样式 */
+        .option-btn {
+            padding: 18px 36px;
+            font-size: 1.8rem;
+            background: linear-gradient(45deg, #2c3e50, #34495e);
+            color: #ecf0f1;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+            margin: 20px;
         }
         
-        @keyframes heartbeat {
-            0% { transform: scale(1); }
-            25% { transform: scale(1.2); }
-            50% { transform: scale(1); }
-            75% { transform: scale(1.1); }
-            100% { transform: scale(1); }
+        .option-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(45deg, #3498db, #2980b9);
+        }
+        
+        .option-btn::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(45deg);
+            transition: all 0.5s ease;
+        }
+        
+        .option-btn:hover::after {
+            transform: rotate(45deg) translate(20px, 20px);
+        }
+        
+        /* 特殊内容区域 */
+        .content-section {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: rgba(10, 10, 10, 0.95);
+            z-index: 90;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 1.5s ease, visibility 1.5s;
+            overflow-y: auto;
+        }
+        
+        .content-section.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* 凤梨文本样式 */
+        #pineapple-content {
+            font-size: 1.5rem;
+            max-width: 800px;
+            text-align: center;
+            background: linear-gradient(45deg, #ff7eb3, #ff758c);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1.8;
+        }
+        
+        /* 小选项样式 */
+        .small-option {
+            position: fixed;
+            padding: 12px 24px;
+            font-size: 1.2rem;
+            background: linear-gradient(45deg, #1e3c72, #2a5298);
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            z-index: 80;
+            transition: all 0.5s ease;
+        }
+        
+        .small-option:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
+        }
+        
+        #option-top-left {
+            top: 30px;
+            left: 30px;
+            background: linear-gradient(45deg, #8e2de2, #4a00e0);
+        }
+        
+        #option-bottom-right {
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(45deg, #f46b45, #eea849);
+        }
+        
+        /* 狗妈文本样式 */
+        #gouma-content {
+            font-size: 1.4rem;
+            max-width: 900px;
+            text-align: left;
+            line-height: 1.7;
+            padding: 30px;
+            background: rgba(30, 30, 40, 0.8);
+            border-radius: 15px;
+            border-left: 5px solid #f46b45;
+        }
+        
+        /* 档案样式 */
+        .archive-section {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .archive-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 40px;
+            color: #3498db;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 15px;
+        }
+        
+        .archive-content {
+            background: rgba(25, 25, 35, 0.9);
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 40px;
+            border-left: 5px solid #2c3e50;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        .archive-content h2 {
+            color: #e74c3c;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        
+        .archive-content h3 {
+            color: #f39c12;
+            margin: 15px 0 10px;
+            font-size: 1.4rem;
+        }
+        
+        .archive-content p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        
+        .archive-content ul {
+            margin-left: 25px;
+            margin-bottom: 20px;
+        }
+        
+        .archive-content li {
+            margin-bottom: 10px;
+        }
+        
+        /* 大表情样式 */
+        .big-emoji {
+            font-size: 15rem;
+            text-align: center;
+            margin: 50px 0;
+            animation: spin 4s infinite linear;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.2); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+        
+        /* 渐变消失效果 */
+        .fade-out {
+            animation: fadeOut 2s forwards;
+        }
+        
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            100% { opacity: 0; visibility: hidden; }
+        }
+        
+        /* 渐变出现效果 */
+        .fade-in {
+            animation: fadeIn 2s forwards;
+        }
+        
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            #welcome-text {
+                font-size: 3rem;
+            }
+            
+            .option-btn {
+                font-size: 1.4rem;
+                padding: 15px 25px;
+            }
+            
+            .small-option {
+                font-size: 1rem;
+                padding: 10px 18px;
+            }
+            
+            #pineapple-content {
+                font-size: 1.2rem;
+            }
+            
+            #gouma-content {
+                font-size: 1.1rem;
+            }
+            
+            .archive-title {
+                font-size: 2rem;
+            }
+            
+            .big-emoji {
+                font-size: 10rem;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="welcome">欢迎</div>
-        <div class="option pineapple-option hidden">凤梨是谁</div>
-        <div class="pineapple-text hidden">哦齁齁齁齁齁<span class="heart">❤</span>哦哦哦～～～～～噫<span class="heart">❤</span>哦哦哦齁齁～咿咿哦哦哦齁齁齁<span class="heart">❤❤❤❤❤❤❤❤❤❤❤</span>哦齁齁齁齁齁<span class="heart">❤</span>哦哦哦～～～～～噫<span class="heart">❤</span>哦哦哦齁齁～咿咿哦哦哦齁齁齁<span class="heart">❤❤❤❤❤❤❤❤❤❤</span>哦齁齁齁齁齁<span class="heart">❤</span>哦哦哦～～～～～噫<span class="heart">❤</span>哦哦哦齁齁～咿咿哦哦哦齁齁齁<span class="heart">❤❤❤❤❤❤❤❤❤❤❤</span>哦齁齁齁齁齁<span class="heart">❤</span>哦哦哦～～～～～噫<span class="heart">❤</span>哦哦哦齁齁～咿咿哦哦哦齁齁齁<span class="heart">❤❤❤❤❤❤❤❤❤❤❤</span>哦齁齁齁齁齁<span class="heart">❤</span>哦哦哦～～～～～噫<span class="heart">❤</span>哦哦哦齁齁～咿咿哦哦哦齁齁齁<span class="heart">❤❤❤❤❤❤❤❤❤❤❤</span>哦齁齁齁齁齁<span class="heart">❤</span>哦哦哦～～～～～噫<span class="heart">❤</span>哦哦哦齁齁～咿咿哦哦哦齁齁齁<span class="heart">❤❤❤❤❤❤❤❤❤❤❤</span>哦齁齁齁</div>
-        <div class="small-option siskal-option hidden top-left">西斯卡尔乐是谁</div>
-        <div class="small-option dog-mom-option hidden bottom-right">狗妈</div>
-        <div class="dialog dog-mom-dialog hidden">
-            5555，你们把我🐶妈打死☠️了，55，大坏蛋😭<br><br>
-            你敢打我们家少爷😡😡😡不想活了你😡😡😡<br><br>
-            555太疼了😭😭😭别👊我了😭，我给你们跪下了😱😱😱<br><br>
-            你竟敢打我😡😡😡你个傻子😡😡😡我请你吃狗肉，要不要啊😈😈😈，傻子，你不是喜欢吃肉吗？😈<br><br>
-            我不吃，我不吃😭😭😭<br><br>
-            吃不吃？本少爷请你吃狗肉😡😡😡你居然不吃😡😡😡<br><br>
-            这是🐶妈的肉，我不吃😭😭😭<br><br>
-            你不吃？那本少爷就吃给你看😏😏真香😋😋😋<br><br>
-            大坏蛋😡，你个大坏蛋😡，不准吃🐶妈的肉，不准😭😭😭<br><br>
-            好你个傻子👿，好本少爷玩够了，回家🦶🦶
-        </div>
-        <div class="thinking hidden">🤔</div>
-        <div class="small-option peeking-text hidden top-left">你在偷看神？</div>
+    <!-- 初始欢迎部分 -->
+    <div id="welcome-section" class="active">
+        <div id="welcome-text">欢迎</div>
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const welcome = document.querySelector('.welcome');
-            const pineappleOption = document.querySelector('.pineapple-option');
-            const pineappleText = document.querySelector('.pineapple-text');
-            const siskalOption = document.querySelector('.siskal-option');
-            const dogMomOption = document.querySelector('.dog-mom-option');
-            const dogMomDialog = document.querySelector('.dog-mom-dialog');
-            const thinking = document.querySelector('.thinking');
-            const peekingText = document.querySelector('.peeking-text');
+    
+    <!-- 凤梨选项 -->
+    <div id="pineapple-option-section" class="content-section">
+        <button id="pineapple-option" class="option-btn">凤梨是谁</button>
+    </div>
+    
+    <!-- 凤梨内容 -->
+    <div id="pineapple-content-section" class="content-section">
+        <div id="pineapple-content"></div>
+    </div>
+    
+    <!-- 小选项区域 -->
+    <div id="small-options-section" class="content-section">
+        <button id="option-top-left" class="small-option">西斯卡尔乐是谁</button>
+        <button id="option-bottom-right" class="small-option">狗妈</button>
+    </div>
+    
+    <!-- 左上角选项内容 -->
+    <div id="top-left-content-section" class="content-section">
+        <div id="top-left-content">
+            <h2>你在偷看神？</h2>
+            <div class="big-emoji">🤔</div>
+        </div>
+    </div>
+    
+    <!-- 狗妈内容 -->
+    <div id="gouma-content-section" class="content-section">
+        <div id="gouma-content"></div>
+    </div>
+    
+    <!-- 莱文特档案 -->
+    <div id="archive-section" class="content-section">
+        <div class="archive-section">
+            <h1 class="archive-title">莱文特档案</h1>
             
-            // 初始序列
-            setTimeout(() => {
-                welcome.classList.add('hidden');
-                pineappleOption.classList.remove('hidden');
-            }, 3000);
-            
-            // 点击"凤梨是谁"选项
-            pineappleOption.addEventListener('click', function() {
-                pineappleOption.classList.add('hidden');
-                pineappleText.classList.remove('hidden');
+            <div class="archive-content">
+                <h2>莱文特档案-1</h2>
+                <h3>莱文特档案（非宇宙正常物质记录档案）</h3>
                 
-                setTimeout(() => {
-                    pineappleText.classList.add('hidden');
-                    siskalOption.classList.remove('hidden');
-                    dogMomOption.classList.remove('hidden');
-                }, 6000);
-            });
-            
-            // 点击"西斯卡尔乐是谁"选项
-            siskalOption.addEventListener('click', function() {
-                siskalOption.classList.add('hidden');
-                peekingText.classList.remove('hidden');
+                <p><strong>档案编号：</strong> Ah-08</p>
+                <p><strong>档案密级：</strong> 历史周期律样本级（Λ-Level） - 仅限文明演化分析部门调阅</p>
                 
-                setTimeout(() => {
-                    peekingText.classList.add('hidden');
-                    thinking.classList.remove('hidden');
-                }, 3000);
-            });
-            
-            // 点击"狗妈"选项
-            dogMomOption.addEventListener('click', function() {
-                dogMomOption.classList.add('hidden');
-                siskalOption.classList.add('hidden');
-                dogMomDialog.classList.remove('hidden');
+                <h3>记录对象： [太平天国]</h3>
                 
-                setTimeout(() => {
-                    dogMomDialog.classList.add('hidden');
-                    thinking.classList.remove('hidden');
-                }, 10000);
-            });
-        });
-    </script>
-</body>
-</html>
+                <p><strong>别名：</strong> 理想主义者的堕落范式、乌托邦熵增现象、神圣性溃散的标本</p>
+                
+                <h3>1. 概述</h3>
+                <p>[太平天国]并非单一历史事件，而是一种在无限叙事层中周期性爆发的文明现象模板。它标志着一种以"绝对理想"为起点的运动，如何因结构性缺陷、权力异化与现实压力，不可逆转地滑向腐败、专制与自我背叛的必然轨迹。其本质是乌托邦理想与现实人性碰撞后产生的悲剧性畸变。</p>
